@@ -1,0 +1,30 @@
+* {
+    /* Merubah font default */
+    font-family: "poppinsregular", arial, sans-serif;
+}
+
+body {
+    /* Agar content tidak ke atas karena navbar fixed top */
+    padding-top: 50px;
+}
+
+html body {
+    /* Mengubah warna background agar tidak terlalu terang */
+    background-color: #f8fafc;
+}
+
+.link {
+    /* Menghilangkan garis bawah pada link */
+    text-decoration: none;
+}
+
+.nav-item {
+    /* Transisi untuk nav */
+    transition: .2s;
+    border-radius: 5px;
+}
+
+.nav-item:hover {
+    /* Mengubah warna latar belakang nav ketia disorot */
+    background-color: #100f11;
+}
