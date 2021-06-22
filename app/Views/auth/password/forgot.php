@@ -20,7 +20,7 @@
             <div class="card-body">
                 <div class="auth-title">FORGOT PASSWORD</div>
                 <hr>
-                <form action="<?= route_to('submit_forgot_form') ?>" method="post">
+                <form action="<?= base_url('auth/password/forgot') ?>" method="post">
                     <!-- CSRF -->
                     <?= csrf_field(); ?>
 
@@ -51,7 +51,7 @@
                     <!-- Log In -->
                     <div class="row">
                         <div class="col text-center">
-                            Already remember? <a href="<?= route_to('show_login_form') ?>" class="link">Log In</a>
+                            Already remember? <a href="<?= base_url('auth/login') ?>" class="link">Log In</a>
                         </div>
                     </div>
                 </form>

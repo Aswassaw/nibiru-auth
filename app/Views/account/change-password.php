@@ -8,7 +8,7 @@
         <h5 class="my-auto mx-auto text-center">Ubah Password</h5>
     </div>
     <div class="card-body">
-        <form action="<?= route_to('change_user_password') ?>" method="post">
+        <form action="<?= base_url('account/change-password') ?>" method="post">
             <!-- CSRF -->
             <?= csrf_field(); ?>
             <!-- Method Spoofing -->

@@ -63,7 +63,7 @@ class Reset extends BaseController
             ]);
 
             session()->remove('reset_password');
-            return redirect()->to(route_to('show_login_form'))->with('success', 'Password anda berhasil diubah, silakan Log in.');
+            return redirect()->to(base_url('auth/login'))->with('success', 'Password anda berhasil diubah, silakan Log in.');
         }
     }
 }

@@ -9,12 +9,12 @@
                 <p style="display: inline;" id="nav-name"><?= $me['username'] ?></p>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown">
-                <a href="<?= route_to('user_profile', $me['slug']) ?>" class="dropdown-item">
+                <a href="<?= base_url('account/profile/' . $me['slug']) ?>" class="dropdown-item">
                     <img src="<?= base_url(AVATAR_100 . $me['avatar']) ?>" class="rounded-circle" alt="Avatar <?= $me['username'] ?? 'user' ?>" height="55px" width="55px">
                     <?= $me['username'] ?>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="<?= route_to('user_settings') ?>" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="<?= base_url('account/settings') ?>" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
                 <div class="dropdown-divider"></div>
                 <form action="<?= base_url('auth/logout') ?>" method="post">
                     <!-- CSRF -->

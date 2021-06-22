@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 float-right">
                 <h4>
-                    Jumlah Log ditemukan:
+                    Jumlah Log ditemukan: <?= $loginlogs_count ?>
                 </h4>
             </div>
             <div class="col-12 col-sm-6 float-right">

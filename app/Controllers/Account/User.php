@@ -95,7 +95,7 @@ class User extends BaseController
                 'log' => 'berhasil memperbarui data.',
             ]);
 
-            return redirect()->to(route_to('user_profile', $me['slug']))->with('success', 'Data Anda berhasil diubah.');
+            return redirect()->to(base_url('account/profile/' . $me['slug']))->with('success', 'Data Anda berhasil diubah.');
         }
     }
 
@@ -148,7 +148,7 @@ class User extends BaseController
                     'log' => 'berhasil memperbarui password.',
                 ]);
 
-                return redirect()->to(route_to('user_profile', $me['slug']))->with('success', 'Password Anda berhasil diubah.');
+                return redirect()->to(base_url('account/profile/' . $me['slug']))->with('success', 'Password Anda berhasil diubah.');
             }
         } else {
             return redirect()->back()->with('error', 'Password Anda tidak sesuai, silahkan coba lagi.')->withInput();
@@ -222,7 +222,7 @@ class User extends BaseController
             ]);
 
             session()->setFlashdata('success', 'Avatar Anda berhasil diubah.');
-            return redirect()->to(route_to('user_profile', $me['slug']));
+            return redirect()->to(base_url('account/profile/' . $me['slug']));
         }
     }
 
@@ -246,7 +246,7 @@ class User extends BaseController
 
             // Jika superadmin ingin menghapus akunnya sendiri
             if ($me['role'] == 1) {
-                return redirect()->to(route_to('user_profile', $me['slug']))->with('error', 'Akun Super Admin tidak bisa dihapus!');
+                return redirect()->to(base_url('account/profile/' . $me['slug']))->with('error', 'Akun Super Admin tidak bisa dihapus!');
             }
 
             // Jika password benar

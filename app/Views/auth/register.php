@@ -20,7 +20,7 @@
             <div class="card-body">
                 <div class="auth-title">REGISTER FORM</div>
                 <hr>
-                <form action="<?= route_to('submit_register_form') ?>" method="post">
+                <form action="<?= base_url('auth/register') ?>" method="post">
                     <!-- CSRF -->
                     <?= csrf_field(); ?>
 
@@ -114,7 +114,7 @@
                     <!-- Log In -->
                     <div class="row">
                         <div class="col text-center">
-                            Already have an Account? <a href="<?= route_to('show_login_form') ?>" class="link">Log In</a>
+                            Already have an Account? <a href="<?= base_url('auth/login') ?>" class="link">Log In</a>
                         </div>
                     </div>
                 </form>

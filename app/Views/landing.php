@@ -244,8 +244,8 @@
                 <li class="menu-toggle">
                     <button onclick="toggleMenu();">&#9776;</button>
                 </li>
-                <li class="menu-item hidden"><a href="<?= route_to('show_login_form') ?>">Log In</a></li>
-                <li class="menu-item hidden"><a href="<?= route_to('show_register_form') ?>">Create an Account</a>
+                <li class="menu-item hidden"><a href="<?= base_url('auth/login') ?>">Log In</a></li>
+                <li class="menu-item hidden"><a href="<?= base_url('auth/register') ?>">Create an Account</a>
                 </li>
             </ul>
         </div>

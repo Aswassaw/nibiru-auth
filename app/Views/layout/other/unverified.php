@@ -2,7 +2,7 @@
 <?php if (isset($me)) { ?>
     <?php if (!$me['email_verified_at']) { ?>
         <div class="alert alert-danger" role="alert">
-            <form action="<?= route_to('resend_register_email_after_login') ?>" method="post">
+            <form action="<?= base_url('account/resend-register-email') ?>" method="post">
                 <!-- CSRF -->
                 <?= csrf_field(); ?>
 

@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Data lengkap <strong><a class="link" href="<?= route_to('user_profile', $user['slug']) ?>"><?= $user['username'] ?></a></strong></h5>
+                <h5 class="card-title">Data lengkap <strong><a class="link" href="<?= base_url('account/profile/' . $user['slug']) ?>"><?= $user['username'] ?></a></strong></h5>
                 <div class="card">
                     <div class="card-body">
                         <div class="user-data my-1">- Nama: <strong><?= $user['fullname'] ?></strong></div>
@@ -52,9 +52,9 @@
                 </div>
 
                 <?php if ($user['id'] == session()->get('id')) { ?>
-                    <a href="<?= route_to('show_change_user_data_form') ?>" class="btn btn-primary mt-2">Ubah Data</a>
+                    <a href="<?= base_url('account/change-data') ?>" class="btn btn-primary mt-2">Ubah Data</a>
                     <a class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#avatarModal">Ubah Avatar</a>
-                    <a href="<?= route_to('show_change_user_password_form') ?>" class="btn btn-danger mt-2">Ubah Password</a>
+                    <a href="<?= base_url('account/change-password') ?>" class="btn btn-danger mt-2">Ubah Password</a>
                 <?php } ?>
             </div>
         </div>
@@ -69,7 +69,7 @@
                 <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= route_to('change_user_avatar') ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url('account/change-avatar') ?>" method="post" enctype="multipart/form-data">
                     <!-- CSRF -->
                     <?= csrf_field(); ?>
                     <!-- Method Spoofing -->

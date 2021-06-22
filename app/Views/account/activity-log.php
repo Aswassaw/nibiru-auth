@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-12 col-sm-6 float-right">
                 <h4>
-                    Jumlah Log ditemukan:
+                    Jumlah Log ditemukan: <?= $activitylogs_count ?>
                 </h4>
             </div>
             <div class="col-12 col-sm-6 float-right">
@@ -51,7 +51,7 @@
             <?php $no = 1 + (10 * ($current_page - 1));
             foreach ($activitylogs as $act) { ?>
                 <div class="card card-body my-2 activitylog">
-                    <p><?= $no++ ?>. <a href="<?= route_to('user_profile', $me['slug']) ?>" class="link"><?= $me['username'] ?></a> <?= $act['log'] ?></p>
+                    <p><?= $no++ ?>. <a href="<?= base_url('account/profile/' . $me['slug']) ?>" class="link"><?= $me['username'] ?></a> <?= $act['log'] ?></p>
                     <small><?= $act['created_at'] ?></small>
                 </div>
             <?php } ?>

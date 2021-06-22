@@ -48,7 +48,7 @@ class Forgot extends BaseController
 				]);
 
 				session()->set('verify_forgot_email', $email);
-				return redirect()->to(route_to('verify_forgot_alert'))->with('success', 'Link untuk reset password telah kami kirimkan ke email Anda.');
+				return redirect()->to(base_url('auth/password/verify-forgot-alert'))->with('success', 'Link untuk reset password telah kami kirimkan ke email Anda.');
 			}
 
 			// Jika user tidak ditemukan
@@ -139,7 +139,7 @@ class Forgot extends BaseController
 				if (time() - $token['created_at'] < 1800) {
 					session()->remove('verify_forgot_email');
 					session()->set('reset_password', $email);
-					return redirect()->to(route_to('show_reset_form'))->with('success', 'Link yang Anda masukkan valid, silahkan ubah password anda.');
+					return redirect()->to(base_url('auth/password/reset'))->with('success', 'Link yang Anda masukkan valid, silahkan ubah password anda.');
 				}
 
 				// Jika token telah kedaluwarsa
@@ -160,6 +160,6 @@ class Forgot extends BaseController
 		}
 
 		session()->set('verify_forgot_email', $email);
-		return redirect()->to(route_to('verify_forgot_alert'));
+		return redirect()->to(base_url('auth/password/verify-forgot-alert'));
 	}
 }

@@ -75,7 +75,7 @@ class Register extends BaseController
 			]);
 
 			session()->set('verify_register_email', $email);
-			return redirect()->to(route_to('verify_register_alert'))->with('success', 'Link untuk verifikasi akun telah kami kirimkan ke email Anda.');
+			return redirect()->to(base_url('auth/verify-register-alert'))->with('success', 'Link untuk verifikasi akun telah kami kirimkan ke email Anda.');
 		}
 	}
 
@@ -188,7 +188,7 @@ class Register extends BaseController
 						return redirect()->to(base_url('home'))->with('success', 'Selamat, akun Anda telah terverifikasi.');
 					} else {
 						session()->remove('verify_register_email');
-						return redirect()->to(route_to('show_login_form'))->with('success', 'Selamat, akun Anda telah terverifikasi, silakan Log In.');
+						return redirect()->to(base_url('auth/login'))->with('success', 'Selamat, akun Anda telah terverifikasi, silakan Log In.');
 					}
 				}
 
@@ -213,7 +213,7 @@ class Register extends BaseController
 			return redirect()->back();
 		} else {
 			session()->set('verify_register_email', $email);
-			return redirect()->to(route_to('verify_register_alert'));
+			return redirect()->to(base_url('auth/verify-register-alert'));
 		}
 	}
 }

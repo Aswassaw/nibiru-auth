@@ -8,7 +8,7 @@
         <h5 class="my-auto mx-auto text-center">Tambah Data User Baru</h5>
     </div>
     <div class="card-body">
-        <form action="<?= route_to('admin_insert_user_data') ?>" method="post">
+        <form action="<?= base_url('admin/user/insert-data') ?>" method="post">
             <!-- CSRF -->
             <?= csrf_field(); ?>
 

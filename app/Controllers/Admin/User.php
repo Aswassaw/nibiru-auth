@@ -9,22 +9,28 @@ class User extends BaseController
 {
     public function showAllUser()
     {
-        if ($this->request->getGet('keyword')) {
-            $keyword = $this->request->getGet('keyword');
-
-            $data['users'] = $this->UserModel->select('id, username, slug, email, avatar, role, email_verified_at, created_at, deleted_at')->like('id', $keyword)->orLike('username', $keyword)->orLike('fullname', $keyword)->orLike('email', $keyword)->withDeleted()->orderBy('role', 'asc')->orderBy('username', 'asc')->paginate(10, 'users');
-            $data['users_count'] = $this->UserModel->like('id', $keyword)->orLike('username', $keyword)->orLike('fullname', $keyword)->orLike('email', $keyword)->withDeleted()->countAllResults();
+        if ($this->request->getGet('keyword') || session()->get('filter')) {
+            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'), session()->get('filter'));
+            $data['users_count'] = $this->UserModel->allUserAdminCount($this->request->getGet('keyword'), session()->get('filter'));
         } else {
-            $data['users'] = $this->UserModel->select('id, username, slug, email, avatar, role, email_verified_at, created_at, deleted_at')->withDeleted()->orderBy('role', 'asc')->orderBy('username', 'asc')->paginate(10, 'users');
-            $data['users_count'] = $this->UserModel->withDeleted()->countAllResults();
+            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'));
+            $data['users_count'] = $this->UserModel->allUserAdminCount($this->request->getGet('keyword'));
         }
 
         $data['pager'] = $this->UserModel->pager;
         $data['current_page'] = $this->request->getGet('page_users') ? $this->request->getGet('page_users') : 1;
 
         $data['me'] = $this->UserModel->select('username, slug, avatar, role, email_verified_at')->find(session()->get('id'));
-        $data['title'] = 'Nibiru - Admin (User)';
+        $data['title'] = APP_NAME . ' - Admin (User)';
         return view('admin/users/all-users', $data);
+    }
+
+    public function filterAllUser()
+    {
+        if ($this->request->getPost('filter')) {
+            session()->set('filter', $this->request->getPost('filter'));
+            return redirect()->back();
+        }
     }
 
     public function showInsertDataForm()
@@ -85,18 +91,22 @@ class User extends BaseController
             $LogLibraries = new \App\Libraries\LogLibraries();
             $LogLibraries->setActivitylog([
                 'id_users' => session()->get('id'),
-                'log' => 'sebagai admin, berhasil menambahkan user baru ' . '<a href="' . route_to('user_profile', $data_user['slug']) . " \" class='link'>" . $data_user['username'] . '.</a>',
+                'log' => 'sebagai admin, berhasil menambahkan user baru ' . '<a href="' . base_url('account/profile/' . $data_user['slug']) . " \" class='link'>" . $data_user['username'] . '.</a>',
             ]);
 
-            return redirect()->to(route_to('show_all_user'))->with('success', 'Data berhasil ditambahkan.');
+            return redirect()->to(base_url('admin/user/all-user'))->with('success', 'Data berhasil ditambahkan.');
         }
     }
 
     public function showChangeDataForm($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_update-data'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan diupdate
@@ -174,18 +184,22 @@ class User extends BaseController
             $LogLibraries = new \App\Libraries\LogLibraries();
             $LogLibraries->setActivitylog([
                 'id_users' => session()->get('id'),
-                'log' => 'sebagai admin, berhasil memperbarui data ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
+                'log' => 'sebagai admin, berhasil memperbarui data ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
             ]);
 
-            return redirect()->to(session()->get('admin')[$id . '_user_update-data'])->with('success', 'Data berhasil diubah.');
+            return redirect()->to(session()->get('current_url'))->with('success', 'Data berhasil diubah.');
         }
     }
 
     public function showChangePasswordForm($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_update-password'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan diupdate
@@ -235,18 +249,22 @@ class User extends BaseController
             $LogLibraries = new \App\Libraries\LogLibraries();
             $LogLibraries->setActivitylog([
                 'id_users' => session()->get('id'),
-                'log' => 'sebagai admin, berhasil memperbarui password ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
+                'log' => 'sebagai admin, berhasil memperbarui password ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
             ]);
 
-            return redirect()->to(session()->get('admin')[$id . '_user_update-password'])->with('success', 'Password berhasil diubah.');
+            return redirect()->to(session()->get('current_url'))->with('success', 'Password berhasil diubah.');
         }
     }
 
     public function showChangeAvatarForm($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_update-avatar'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan diupdate
@@ -326,18 +344,22 @@ class User extends BaseController
             $LogLibraries = new \App\Libraries\LogLibraries();
             $LogLibraries->setActivitylog([
                 'id_users' => session()->get('id'),
-                'log' => 'sebagai admin, berhasil memperbarui avatar ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
+                'log' => 'sebagai admin, berhasil memperbarui avatar ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '.</a>',
             ]);
 
-            return redirect()->to(session()->get('admin')[$id . '_user_update-avatar'])->with('success', 'Avatar berhasil diubah.');
+            return redirect()->to(session()->get('current_url'))->with('success', 'Avatar berhasil diubah.');
         }
     }
 
     public function becomeAdmin($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_become-admin'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan diupdate
@@ -361,17 +383,21 @@ class User extends BaseController
         $LogLibraries = new \App\Libraries\LogLibraries();
         $LogLibraries->setActivitylog([
             'id_users' => session()->get('id'),
-            'log' => 'sebagai admin, berhasil mengubah role ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '</a> dari User menjadi Admin.',
+            'log' => 'sebagai admin, berhasil mengubah role ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '</a> dari User menjadi Admin.',
         ]);
 
-        return redirect()->to(session()->get('admin')[$id . '_user_become-admin'])->with('success', 'Role berhasil diubah.');
+        return redirect()->to(session()->get('current_url'))->with('success', 'Role berhasil diubah.');
     }
 
     public function becomeUser($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_become-user'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan diupdate
@@ -395,17 +421,21 @@ class User extends BaseController
         $LogLibraries = new \App\Libraries\LogLibraries();
         $LogLibraries->setActivitylog([
             'id_users' => session()->get('id'),
-            'log' => 'sebagai admin, berhasil mengubah role ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '</a> dari Admin menjadi User.',
+            'log' => 'sebagai admin, berhasil mengubah role ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '</a> dari Admin menjadi User.',
         ]);
 
-        return redirect()->to(session()->get('admin')[$id . '_user_become-user'])->with('success', 'Role berhasil diubah.');
+        return redirect()->to(session()->get('current_url'))->with('success', 'Role berhasil diubah.');
     }
 
     public function deleteAccount($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_delete-account'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan delete
@@ -428,17 +458,21 @@ class User extends BaseController
         $LogLibraries = new \App\Libraries\LogLibraries();
         $LogLibraries->setActivitylog([
             'id_users' => session()->get('id'),
-            'log' => 'sebagai admin, berhasil menghapus akun ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '</a>',
+            'log' => 'sebagai admin, berhasil menghapus akun ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '</a>',
         ]);
 
-        return redirect()->to(session()->get('admin')[$id . '_user_delete-account'])->with('success', 'Akun tersebut berhasil dihapus.');
+        return redirect()->to(session()->get('current_url'))->with('success', 'Akun tersebut berhasil dihapus.');
     }
 
     public function restoreAccount($id)
     {
-        // Jika tidak ada session tersebut
-        if (!isset(session()->get('admin')[$id . '_user_restore-account'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // Check Permission Admin
+        $RoleLibraries = new \App\Libraries\RoleLibraries();
+        $permission = $RoleLibraries->checkPermissionAdmin(session()->get('id'), $id);
+
+        // Jika permission false
+        if (!$permission) {
+            return redirect()->to(session()->get('current_url'))->with('error', 'Anda tidak memiliki akses untuk melakukan tindakan tersebut.');
         }
 
         // Mendapatkan data user yang akan restore
@@ -459,9 +493,9 @@ class User extends BaseController
         $LogLibraries = new \App\Libraries\LogLibraries();
         $LogLibraries->setActivitylog([
             'id_users' => session()->get('id'),
-            'log' => 'sebagai admin, berhasil mengembalikan akun ' . '<a href="' . route_to('user_profile', $user['slug']) . " \" class='link'>" . $user['username'] . '</a>',
+            'log' => 'sebagai admin, berhasil mengembalikan akun ' . '<a href="' . base_url('account/profile/' . $user['slug']) . " \" class='link'>" . $user['username'] . '</a>',
         ]);
 
-        return redirect()->to(session()->get('admin')[$id . '_user_restore-account'])->with('success', 'Akun tersebut berhasil direstore.');
+        return redirect()->to(session()->get('current_url'))->with('success', 'Akun tersebut berhasil direstore.');
     }
 }

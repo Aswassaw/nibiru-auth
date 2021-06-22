@@ -6,15 +6,11 @@ use App\Models\TokenModel;
 
 class EmailLibraries
 {
-    public function __construct()
-    {
-        $this->TokenModel = new TokenModel();
-    }
-
     public function sendAuthEmail($email, $type)
     {
+        $TokenModel = new TokenModel();
         // Jika ada token dengan email yang sama, hapus token tersebut
-        $this->TokenModel->where('email', $email)->delete();
+        $TokenModel->where('email', $email)->delete();
         // Generate token
         $token = base64_encode(random_bytes(64));
 
@@ -30,7 +26,7 @@ class EmailLibraries
         $this->_sendAuthEmail($token, $type, $email);
 
         // Insert Token
-        $this->TokenModel->save($data_token);
+        $TokenModel->save($data_token);
     }
 
     private function _sendAuthEmail($token, $type, $emailParam)

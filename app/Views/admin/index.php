@@ -3,7 +3,7 @@
 
 
 <?= $this->section('content'); ?>
-<h3>Selamat datang admin <a href="<?= route_to('user_profile', $me['slug']) ?>" class="link"><?= $me['username'] ?></a></h3>
+<h3>Selamat datang admin <a href="<?= base_url('account/profile/' . $me['slug']) ?>" class="link"><?= $me['username'] ?></a></h3>
 <hr>
 <div class="card card-body">
     <div class="row row-cols-1 row-cols-md-3">
@@ -16,7 +16,7 @@
                         <strong><?= $users_count ?></strong> User ditemukan,
                         <strong><?= $users_deleted_count ?></strong> dihapus.
                     </p>
-                    <a class="btn btn-primary" href="<?= route_to('show_all_user') ?>">Atur</a>
+                    <a class="btn btn-primary" href="<?= base_url('admin/user/all-user') ?>">Atur</a>
                 </div>
             </div>
         </div>

@@ -19,10 +19,10 @@
 
 <div class="card mx-auto" style="max-width: 555px;">
     <div class="card-header">
-        <h5 class="my-auto mx-auto text-center">Ubah Avatar <a href="<?= route_to('user_profile', $user['slug']) ?>" class="link"><?= $user['username'] ?></a></h5>
+        <h5 class="my-auto mx-auto text-center">Ubah Avatar <a href="<?= base_url('account/profile/' . $user['slug']) ?>" class="link"><?= $user['username'] ?></a></h5>
     </div>
     <div class="card-body">
-        <form action="<?= route_to('admin_change_user_avatar', $user['id']) ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('admin/user/change-avatar/' . $user['id']) ?>" method="post" enctype="multipart/form-data">
             <!-- CSRF -->
             <?= csrf_field(); ?>
             <!-- Method Spoofing -->

@@ -11,7 +11,6 @@ use App\Filters\Throttler;
 use App\Filters\AfterAuth;
 use App\Filters\BeforeAuth;
 use App\Filters\AdminAuth;
-use App\Filters\AdminClear;
 
 class Filters extends BaseConfig
 {
@@ -32,7 +31,6 @@ class Filters extends BaseConfig
 			BeforeAuth::class,
 			AdminAuth::class,
 		],
-		'adminclear' => AdminClear::class,
 	];
 
 	/**
@@ -46,12 +44,6 @@ class Filters extends BaseConfig
 			'csrf',
 			'honeypot',
 			'throttle',
-
-			// Filter untuk clear session dari admin
-			'adminclear' => ['except' => [
-				'admin',
-				'admin/*',
-			]],
 		],
 		'after'  => [
 			'toolbar',

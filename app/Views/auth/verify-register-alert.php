@@ -15,7 +15,7 @@
                 </button>
                 <div class="collapse<?= $validation->hasError('email') ? '.show' : null ?>" id="form_new_verify">
                     <div class="card card-body">
-                        <form action="<?= route_to('resend_register_email') ?>" method="post">
+                        <form action="<?= base_url('auth/verify-register-alert') ?>" method="post">
                             <!-- CSRF -->
                             <?= csrf_field(); ?>
 
@@ -43,11 +43,11 @@
                 <div class="row">
                     <div class="col">
                         <h5>Log In Sekarang</h5>
-                        <a href="<?= route_to('show_login_form') ?>" class="btn btn-primary">Log In</a>
+                        <a href="<?= base_url('auth/login') ?>" class="btn btn-primary">Log In</a>
                     </div>
                     <div class="col">
                         <h5>Register Sekarang</h5>
-                        <a href="<?= route_to('show_register_form') ?>" class="btn btn-danger">Register</a>
+                        <a href="<?= base_url('auth/register') ?>" class="btn btn-danger">Register</a>
                     </div>
                 </div>
             </div>

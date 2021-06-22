@@ -12,14 +12,14 @@
         <div class="card-body">
             <h5>Log Aktivitas</h5>
             <hr>
-            <a href="<?= route_to('user_activity_log') ?>" class="btn btn-primary">Lihat</a>
+            <a href="<?= base_url('account/activity-log') ?>" class="btn btn-primary">Lihat</a>
         </div>
     </div>
     <div class="card my-2">
         <div class="card-body">
             <h5>Log Masuk</h5>
             <hr>
-            <a href="<?= route_to('user_login_log') ?>" class="btn btn-primary">Lihat</a>
+            <a href="<?= base_url('account/login-log') ?>" class="btn btn-primary">Lihat</a>
         </div>
     </div>
 </div>
@@ -31,11 +31,11 @@
         <div class="card-body">
             <h5>Hapus Akun</h5>
             <hr>
-            <form method="post" action="<?= route_to('delete_user_account') ?>" id="delete_user">
+            <form method="post" action="<?= base_url('account/delete-account') ?>" id="delete_user">
                 <!-- CSRF -->
                 <?= csrf_field(); ?>
                 <!-- Method Spoofing -->
-                <input type="hidden" name="_method" value="DELETE" />
+                <input type="hidden" name="_method" value="PATCH" />
 
                 <!-- Password -->
                 <div class="mb-3">
