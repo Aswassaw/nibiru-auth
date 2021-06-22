@@ -4,9 +4,9 @@
 Nibiru Login adalah sebuah aplikasi sistem login lengkap yang dibuat dengan tujuan untuk mempercepat proses pembuatan aplikasi CodeIgniter 4 yang membutuhkan sebuah sistem login yang lengkap. Nibiru Login dibuat menggunakan CodeIgniter 4.1.2 dan Bootstrap 5.0.1. Versi ini adalah pengembangan dari versi sebelumnya, dimana pada versi ini ada banyak peningkatan fitur dari versi sebelumnya.
 
 ## Fitur-fitur pada Nibiru Login
-Nibiru Login memiliki 3 macam role (SuperAdmin, Admin, dan User), dimana untuk setiap role memiliki fitur yang berbeda pula.
+Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk setiap role memiliki fitur yang berbeda pula.
 
-### Fitur untuk role SuperAdmin (1):
+### Fitur untuk role Super Admin (1):
 - Login dan Logout.
 - Forgot password dengan link lewat Email.
 - Update Data Pribadi.
@@ -45,6 +45,7 @@ Nibiru Login memiliki 3 macam role (SuperAdmin, Admin, dan User), dimana untuk s
 - Register.
 - Menggunakan SoftDeletes.
 - Search dan Pagination.
+- Filter Search.
 - Log Aktivitas.
 - Log Masuk.
 - Migration dan Seeder menggunakan Faker.
@@ -68,7 +69,7 @@ Nibiru Login memiliki 3 macam role (SuperAdmin, Admin, dan User), dimana untuk s
 - Jalankan `php spark serve`.
 - Akun default yang tersedia untuk login:
 
-  ### SuperAdmin:
+  ### Super Admin:
   - Username: superadmin
   - Password: Superadmin123
   
