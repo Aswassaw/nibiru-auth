@@ -10,11 +10,11 @@ class User extends BaseController
     public function showAllUser()
     {
         if ($this->request->getGet('keyword') || session()->get('filter')) {
-            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'), session()->get('filter'));
-            $data['users_count'] = $this->UserModel->allUserAdminCount($this->request->getGet('keyword'), session()->get('filter'));
+            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'), session()->get('filter'))->orderBy('role', 'asc')->orderBy('username', 'asc')->paginate(10, 'users');
+            $data['users_count'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'), session()->get('filter'))->countAllResults();
         } else {
-            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'));
-            $data['users_count'] = $this->UserModel->allUserAdminCount($this->request->getGet('keyword'));
+            $data['users'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'))->orderBy('role', 'asc')->orderBy('username', 'asc')->paginate(10, 'users');
+            $data['users_count'] = $this->UserModel->allUserAdmin($this->request->getGet('keyword'))->countAllResults();
         }
 
         $data['pager'] = $this->UserModel->pager;
