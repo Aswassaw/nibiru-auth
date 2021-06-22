@@ -168,7 +168,7 @@
                                                             <input type="hidden" name="_method" value="PATCH" />
 
                                                             <!-- Submit -->
-                                                            <button type="submit" class="dropdown-item">Delete Account</button>
+                                                            <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda yakin?')">Delete Account</button>
                                                         </form>
                                                     </li>
                                                 <?php } else { ?>
@@ -181,7 +181,7 @@
                                                             <input type="hidden" name="_method" value="PATCH" />
 
                                                             <!-- Submit -->
-                                                            <button type="submit" class="dropdown-item">Restore Account</button>
+                                                            <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda yakin?')">Restore Account</button>
                                                         </form>
                                                     </li>
                                                 <?php } ?>
