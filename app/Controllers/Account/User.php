@@ -11,6 +11,12 @@ class User extends BaseController
     {
         // Mendapatkan data-data untuk ditampilkan pada halaman
         $data['user'] = $this->UserModel->select('id, username, slug, fullname, email, avatar, birth_date, role, created_at')->where('slug', $slug)->first();
+
+        // Jika user yang dicari tidak ditemukan, tampilkan halaman 404
+        if (!$data['user']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
         $data['user']['created_at'] = Time::parse($data['user']['created_at'])->toLocalizedString('d MMMM yyyy');
         // Jika birth_date tidak kosong
         if ($data['user']['birth_date']) {
