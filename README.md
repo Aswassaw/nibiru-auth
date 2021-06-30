@@ -63,6 +63,7 @@ Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk 
 - Jalankan `composer install`.
 - Ubah file `env` menjadi `.env`, atau gunakan konfigurasi milik Anda sendiri.
 - Konfigurasikan email Anda di `App\Config\Email.php`, ubah isi property `$SMTPUser` dengan email Anda dan `$SMTPPass` dengan password email Anda.
+- Ubah nama pengirim email di `App\Config\Constants.php`. Cari const EMAIL lalu ubah isinya dengan nama pengirim email yang anda inginkan.
 - Buat database bernama `nibiru-login`.
 - Migrate menggunakan `php spark migrate`.
 - Seeding menggunakan `php spark db:seed Users`.
