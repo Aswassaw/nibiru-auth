@@ -22,7 +22,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>/package/bootstrap5/css/bootstrap.min.css">
 
-    <title><?= $title ?></title>
+    <title><?= $title ?? APP_NAME ?></title>
 </head>
 
 <body>
