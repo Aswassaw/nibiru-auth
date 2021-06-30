@@ -56,7 +56,7 @@ Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk 
 - Throttle 30 request/menit.
 - Honeypot.
 
-## Cara instalasi Nibiru Login
+## Cara penggunaan Nibiru Login
 - Pastikan composer terinstall.
 - Pastikan versi PHP yang terinstall adalah versi `7.4` ke atas.
 - Clone repository ini.
