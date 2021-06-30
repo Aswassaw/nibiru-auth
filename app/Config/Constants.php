@@ -44,6 +44,7 @@ defined('DECADE') || define('DECADE', 315360000);
 
 // Custom Constants
 defined('APP_NAME') || define('APP_NAME', 'Nibiru');
+defined('EMAIL') || define('EMAIL', 'example@gmail.com');
 defined('AVATAR_100') || define('AVATAR_100', 'uploads/avatar/100x100/');
 defined('AVATAR_400') || define('AVATAR_400', 'uploads/avatar/400x400/');
 defined('AVATAR_ORI') || define('AVATAR_ORI', 'uploads/avatar/original/');

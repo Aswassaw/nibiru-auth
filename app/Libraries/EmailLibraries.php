@@ -32,7 +32,7 @@ class EmailLibraries
     private function _sendAuthEmail($token, $type, $emailParam)
     {
         $email = \Config\Services::email();
-        $email->setFrom('resama227@gmail.com', APP_NAME);
+        $email->setFrom(EMAIL, APP_NAME);
         $email->setTo($emailParam);
 
         // Memilih tipe email
