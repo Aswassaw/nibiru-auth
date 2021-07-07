@@ -7,7 +7,7 @@ use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 // use CodeIgniter\Filters\Honeypot;
 use App\Filters\Honeypot;
-use App\Filters\Throttler;
+// use App\Filters\Throttler;
 use App\Filters\AfterAuth;
 use App\Filters\BeforeAuth;
 use App\Filters\AdminAuth;
@@ -24,7 +24,7 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
-		'throttle' => Throttler::class,
+		// 'throttle' => Throttler::class,
 		'afterauth'  => AfterAuth::class,
 		'beforeauth' => BeforeAuth::class,
 		'adminauth' => [
@@ -43,7 +43,7 @@ class Filters extends BaseConfig
 		'before' => [
 			'csrf',
 			'honeypot',
-			'throttle',
+			// 'throttle',
 		],
 		'after'  => [
 			'toolbar',
