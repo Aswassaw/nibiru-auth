@@ -1,10 +1,10 @@
-# Nibiru Login
+# Nibiru Auth
 
-## Apa itu Nibiru Login?
-Nibiru Login adalah sebuah aplikasi sistem login lengkap yang dibuat dengan tujuan untuk mempercepat proses pembuatan aplikasi CodeIgniter 4 yang membutuhkan sebuah sistem login yang lengkap. Nibiru Login dibuat menggunakan CodeIgniter 4.1.2 dan Bootstrap 5.0.1. Versi ini adalah pengembangan dari versi sebelumnya, dimana pada versi ini ada banyak peningkatan fitur dari versi sebelumnya.
+## Apa itu Nibiru Auth?
+Nibiru Auth adalah sebuah aplikasi auth system lengkap yang dibuat dengan tujuan untuk mempercepat proses pembuatan aplikasi CodeIgniter 4 yang membutuhkan sebuah auth system yang lengkap. Nibiru Auth dibuat menggunakan CodeIgniter 4.1.2 dan Bootstrap 5.0.1. Versi ini adalah pengembangan dari versi sebelumnya, dimana pada versi ini ada lebih banyak peningkatan fitur dari versi sebelumnya.
 
-## Fitur-fitur pada Nibiru Login
-Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk setiap role memiliki fitur yang berbeda pula.
+## Fitur-fitur pada Nibiru Auth
+Nibiru Auth memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk setiap role memiliki fitur yang berbeda pula.
 
 ### Fitur untuk role Super Admin (1):
 - Login dan Logout.
@@ -56,7 +56,7 @@ Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk 
 - Throttle 30 request/menit.
 - Honeypot.
 
-## Cara penggunaan Nibiru Login
+## Cara penggunaan Nibiru Auth
 - Pastikan composer terinstall.
 - Pastikan versi PHP yang terinstall adalah versi `7.4` ke atas.
 - Clone repository ini.
@@ -64,7 +64,7 @@ Nibiru Login memiliki 3 macam role (Super Admin, Admin, dan User), dimana untuk 
 - Ubah file `env` menjadi `.env`, atau gunakan konfigurasi milik Anda sendiri.
 - Konfigurasikan email Anda di `App\Config\Email.php`, ubah isi property `$SMTPUser` dengan email Anda dan `$SMTPPass` dengan password email Anda.
 - Ubah nama pengirim email di `App\Config\Constants.php`. Cari const EMAIL lalu ubah isinya dengan nama pengirim email yang anda inginkan.
-- Buat database bernama `nibiru-login`.
+- Konfigurasikan database mysql pada file .env.
 - Migrate menggunakan `php spark migrate`.
 - Seeding menggunakan `php spark db:seed Users`.
 - Jika Anda ingin menambahkan beberapa user dummy untuk percobaan, Seeding menggunakan `php spark db:seed UsersSample`.
